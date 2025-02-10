@@ -26,3 +26,7 @@ pub fn calculate_fruit_frequency(fruit_set: &Vec<String>) -> HashMap<String, u32
     }
     fruit_frequency
 }
+
+pub fn sort_fruit_salad(fruit_salad: &mut Vec<String>) {
+    fruit_salad.sort();
+}
