@@ -1,7 +1,7 @@
 
 use rand::seq::SliceRandom;
 use rand::thread_rng;
-use std::collections::{HashMap, HashSet};
+use std::collections::{HashMap};
 
 pub fn generate_fruit() -> String {
     let fruits = [
@@ -18,7 +18,7 @@ pub fn generate_fruit() -> String {
     fruits.choose(&mut rng).unwrap().to_string()
 }
 
-pub fn calculate_fruit_frequency(fruit_set: &HashSet<String>) -> HashMap<String, u32> {
+pub fn calculate_fruit_frequency(fruit_set: &Vec<String>) -> HashMap<String, u32> {
     let mut fruit_frequency = HashMap::new();
     for fruit in fruit_set {
         let count = fruit_frequency.entry(fruit.to_string()).or_insert(0);
