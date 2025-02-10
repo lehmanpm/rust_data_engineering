@@ -7,29 +7,38 @@ to the back of the deque. Finally, it prints out the final fruit salad.
 A VecDeque is a double-ended queue, which means that you can push and pop from both ends
 of the queue.
 */
-
-use rand::seq::SliceRandom; // rand is a random number generation library in Rust
-use rand::thread_rng;
+use clap::Parser;
 use std::collections::VecDeque;
+use vecdeque_fruit_salad::*;
+
+#[derive(Parser, Debug)]
+#[clap(
+    version = "1.0",
+    author = "Phil Lehman <lehmanpm@gmail.com>",
+    about = "Displays fruits to include in the salad"
+)]
+struct Args {
+    #[clap(short, long, use_value_delimiter = true)]
+    fruits: Vec<String>,
+}
 
 fn main() {
-    let mut fruit: VecDeque<&str> = VecDeque::new();
-    fruit.push_back("Arbutus");
-    fruit.push_back("Loquat");
-    fruit.push_back("Strawberry Tree Berry");
-
-    // Scramble (shuffle) the fruit
-    let mut rng = thread_rng();
-    let mut fruit: Vec<_> = fruit.into_iter().collect();
-    fruit.shuffle(&mut rng);
-
-    // Convert it back to VecDeque
-    let mut fruit: VecDeque<_> = fruit.into_iter().collect();
+    let opts: Args = Args::parse();
+    let mut fruit: VecDeque<String> = create_fruit_salad();
+    fruit.push_back(String::from("Arbutus"));
+    fruit.push_back(String::from("Loquat"));
+    fruit.push_back(String::from("Strawberry Tree Berry"));
 
     // Add fruits to the both ends of the queue after shuffling
-    fruit.push_front("Pomegranate");
-    fruit.push_back("Fig");
-    fruit.push_back("Cherry");
+    fruit.push_front(String::from("Pomegranate"));
+    fruit.push_back(String::from("Fig"));
+    fruit.push_back(String::from("Cherry"));
+
+    for f in opts.fruits {
+        add_fruits_to_salad(f, &mut fruit);
+    }
+    
+    sort_fruit_salad(&mut fruit);
 
     // Print out the fruit salad
     println!("Fruit Salad:");
