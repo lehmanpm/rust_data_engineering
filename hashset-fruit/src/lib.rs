@@ -1,7 +1,7 @@
 
 use rand::seq::SliceRandom;
 use rand::thread_rng;
-use std::collections::{HashMap};
+use std::collections::HashMap;
 
 pub fn generate_fruit() -> String {
     let fruits = [
